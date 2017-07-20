@@ -25,9 +25,10 @@
       
       <%= content_tag(:span, options[:append], :class => 'add-on') if options[:append].present? %>
       <%= options[:append_html].html_safe if options[:append_html].present? %>
-      
-      <%= content_tag(:span, options[:errors], :class => error_class) if options[:errors].present? %>
-      
+
+      <% html_safe_error = options[:builder].options.fetch(:errors_html_safe, {})[options[:method]] %>
+      <%= content_tag(:span, html_safe_error ? options[:errors].html_safe : options[:errors], :class => error_class) if options[:errors].present? %>
+
       <%= content_tag(:span, options[:help_block], :class => 'help-block')   if options[:help_block].present? %>
       <%= content_tag(:span, options[:help_inline], :class => 'help-inline') if options[:help_inline].present? %>
     <% end %>

@@ -13,10 +13,14 @@ class User
   extend ActiveModel::Naming
   include ActiveModel::Validations
   include ActiveModel::Conversion
-  
-  attr_accessor :id, :name, :twitter, :role, :colors, :timestamp, :url
+
+  attr_accessor :id, :name, :twitter, :role, :colors, :timestamp, :url, :notes
   
   validates :name, :presence => true
+  validates :notes, :length => {
+      :within => 0..10,
+      :message => "this has <b>html</b>"
+  }
   
   def persisted?
     false
